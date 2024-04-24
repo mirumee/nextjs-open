@@ -4,7 +4,7 @@ const nextConfig = {
     remotePatterns: [
       {
         protocol: 'https',
-        hostname: 'labs.jensimmons.com',
+        hostname: 'www.nyc.gov',
       },
     ]
   }

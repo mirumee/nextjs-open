@@ -1,44 +1,52 @@
+"use client"
 import Image from "next/image";
 
-import testImage from "../../../../public/image/test-image.jpg";
+import image from "../../../../public/image/test-image.jpg";
+import { CopyBlock, dracula } from 'react-code-blocks';
 
 const IMAGE_WIDTH = [400, 300, 200, 100];
 const IMAGE_HEIGTH = [400, 300, 200, 100];
 const QUALIRY = [100, 80, 60, 40, 20, 0];
 
-export default function Page() {
+export default function Internal() {
   return (
     <article>
       <h1>Image Optimization</h1>
-      <hr />
-      <Image alt="pic" src={testImage} />
-      <hr />
-      <h1>Image fill</h1>
-      <hr />
-      Image width:
-      {IMAGE_WIDTH.map((width) => {
+      
+      <div>
+      <CopyBlock text='<Image alt="pic" src={image} />' language="jsx" theme={dracula}/>
+      </div>
+
+      <Image alt="pic" src={image} />
+
+      <CopyBlock text='<Image key={i} alt="pic" src={image} width={width} />' language="jsx" theme={dracula}/>
+      Prop: width
+      {IMAGE_WIDTH.map((width, i) => {
         return (
           <>
             width: {width}
-            <Image key={width} alt="pic" src={testImage} width={width} />
+            <Image key={i} alt="pic" src={image} width={width} />
           </>
         )
       })}
-      Image height:
-      {IMAGE_HEIGTH.map((height) => {
+      <CopyBlock text='<Image key={i} alt="pic" src={image} height={height} />' language="jsx" theme={dracula}/>
+      Prop: height
+      {IMAGE_HEIGTH.map((height, i) => {
         return (
           <>
             height: {height}
-            <Image key={height} alt="pic" src={testImage} height={height} />
+            <Image key={i} alt="pic" src={image} height={height} />
           </>
         )
       })}
-      Image quality:
-      {QUALIRY.map((quality) => {
+      <CopyBlock text='<Image key={i} alt="pic" src={image} quality={quality} />' language="jsx" theme={dracula}/>
+
+      Prop: quality
+      {QUALIRY.map((quality, i) => {
         return (
           <>
             Quality: {quality}
-            <Image key={quality} alt="pic" src={testImage} quality={quality} />
+            <Image key={i} alt="pic" src={image} quality={quality} />
           </>
         )
       })}
