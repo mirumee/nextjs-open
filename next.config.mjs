@@ -7,6 +7,16 @@ const nextConfig = {
         hostname: 'www.nyc.gov',
       },
     ]
+  },
+  redirects: async () => {
+    return [
+      {
+        source: "/next-config-redirect-missing",
+        destination: "/config-redirect?missing=true",
+        permanent: true,
+        missing: [{ type: "cookie", key: "missing-cookie" }],
+      }
+    ];
   }
 };
 

@@ -1,10 +1,7 @@
-async function getTime() {
-  return new Date().toISOString();
-}
+import Image from "next/image";
 
-export const revalidate = 10;
-
-export default async function ISR() {
-  const time = getTime();
-  return <div>Time: {time}</div>;
+export default function Redirect() {
+  return (
+    <h1>coockie</h1>
+  );
 }
