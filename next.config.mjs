@@ -11,10 +11,22 @@ const nextConfig = {
   redirects: async () => {
     return [
       {
-        source: "/next-config-redirect-missing",
-        destination: "/config-redirect?missing=true",
+        source: "/config/redirect",
+        destination: "/config/redirect-destination",
         permanent: true,
-        missing: [{ type: "cookie", key: "missing-cookie" }],
+      },
+      {
+        source: "/config/redirect",
+        destination: "/config/redirect-destination",
+        permanent: true,
+      }
+    ];
+  },
+  rewrites: async () => {
+    return [
+      {
+        source: "/config/rewrite",
+        destination: "/config/rewrite-destination",
       }
     ];
   }

@@ -17,6 +17,7 @@ export async function GET(request: NextRequest) {
 
   // x-prerender-revalidate is a custom header that tells the prerendering service to revalidate the page after the specified number of seconds
   console.log(`https://${request.headers.get("host")}/render/isr`)
+  
   const result = await fetch(`http://${request.headers.get("host")}/render/isr`, {
     headers: { "x-prerender-revalidate": "10" },
     method: "HEAD",

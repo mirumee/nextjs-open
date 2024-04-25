@@ -1,5 +1,11 @@
 "use server";
 
+async function wait(n: number = 1000) {
+  return new Promise((res) => {
+    setTimeout(res, n);
+  });
+}
+
 const data = {
   songs: [
     {
@@ -67,9 +73,12 @@ export async function getSongs() {
 }
 
 export async function getSong(album: string, title: string) {
-  return data.songs.find(
+  const song = data.songs.find(
     (song) =>
       song.album === decodeURIComponent(album) &&
       song.title === decodeURIComponent(title),
   );
+
+  return wait(1000).then(() => { return song; });
+
 }

@@ -9,10 +9,13 @@ export default async function Page({ children }: { children: ReactNode }) {
       tags: ["revalidate"],
     },
   );
+
   const fetchedDate = await fakeFetch();
+  
   return (
     <div>
       <div>Fetched time: {new Date(fetchedDate).toISOString()}</div>
+      {children}
     </div>
   );
 }

@@ -5,49 +5,56 @@ export function middleware(request: NextRequest) {
   const { nextUrl: { pathname}, geo, headers } = request;
 
   const requestHeaders = new Headers(headers);
-  console.log(geo)
+  const nextResponse = NextResponse.next()
+  const responseHeaders = new Headers(nextResponse.headers);
 
   if (pathname === '/middleware/geo') {
-    return new NextResponse(JSON.stringify({ hello: JSON.stringify(geo) }), {
+    return new NextResponse(JSON.stringify({ geo: JSON.stringify(geo) }), {
       status: 200,
       headers: {
         "content-type": "application/json",
-        "set-cookie": "test-middleware-geo=success"
       },
     });
   }
 
   if (pathname === '/middleware/redirect') {
     const redirectUrl = new URL("/middleware/redirect-destination", request.nextUrl.origin);
-    return NextResponse.redirect(redirectUrl, {
-      headers: { "set-cookie": "test-middleware-redirect=success" },
-    });
+    return NextResponse.redirect(redirectUrl);
   }
 
   if (pathname === '/middleware/rewrite') {
     const rewriteUrl = new URL("/middleware/rewrite-destination", request.nextUrl.origin);
-    return NextResponse.rewrite(rewriteUrl, {
-      headers: { "set-cookie": "test-middleware-rewrite=success" },
-    });
+    return NextResponse.rewrite(rewriteUrl);
   }
 
   if (pathname === "/api/middleware") {
     return new NextResponse(JSON.stringify({ hello: "from middleware.ts" }), {
       status: 200,
       headers: {
-        "content-type": "application/json",
-        "set-cookie": "test-middleware-api=success"
+        "content-type": "application/json"
       },
     });
   }
 
-  const response = NextResponse.next();
+  if (pathname === "/render/isr" && !request.headers.get("x-prerender-revalidate")) {
+    responseHeaders.set(
+      "cache-control",
+      "max-age=10, stale-while-revalidate=999",
+    );
+  }
+
+  if (pathname.startsWith("/api/revalidate-tag")) {
+    responseHeaders.set(
+      "cache-control",
+      "private, no-cache, no-store, max-age=0, must-revalidate",
+    );
+  }
+
   if (pathname === "/middleware/cookie") {
-    
-    response.cookies.set("fromMiddleware", "withLove", {
+    nextResponse.cookies.set("fromMiddleware", "withLove", {
       expires: new Date(Date.now() + 1000 * 60 * 60 * 24 * 365),
     });
-    return response;
+    return nextResponse;
   }
 }
  

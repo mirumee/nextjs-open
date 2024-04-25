@@ -1,8 +1,14 @@
+import React from "react";
+
 async function getTime() {
   return new Date().toISOString();
 }
 
-export default async function Revalidate() {
+export default function Revalidate() {
   const time = getTime();
-  return <div>Time: {time}</div>;
+  return (
+    <div>
+      <div>Time: {time}</div>
+    </div>
+  );
 }

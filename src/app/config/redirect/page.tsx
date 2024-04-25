@@ -1,8 +1,5 @@
-export default async function ISR() {
+export default function Redirect() {
   return (
-    <>
-      <h1>return new Date().toISOString();</h1>
-      <div>SSG</div>
-    </>
-  )
+    <h1>redirect</h1>
+  );
 }

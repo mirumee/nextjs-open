@@ -2,6 +2,6 @@ import Image from "next/image";
 
 export default function Redirect() {
   return (
-    <h1>check cookies</h1>
+    <h1>Call middleware api</h1>
   );
 }

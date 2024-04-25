@@ -22,8 +22,8 @@ export default function Client() {
   return (
     <div>
       <button onClick={onClick}>Fire Server Actions</button>
-      {isPending && <div>☎️ing Server Actions...</div>}
-      {song?.artist}
+      {isPending && <div>Render Server Actions...</div>}
+      <p>{song?.artist}</p>
     </div>
   );
 }
